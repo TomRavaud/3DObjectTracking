@@ -352,9 +352,6 @@ FocusedRenderer::FocusedRenderer(
     : Renderer{name, metafile_path, renderer_geometry_ptr, camera_ptr} {}
 
 void FocusedRenderer::CalculateProjectionMatrix() {
-
-  std::cout << "CalculateProjectionMatrix" << std::endl;
-
   // Calculate limits
   visible_body_names_.clear();
   float u_min = std::numeric_limits<float>::max();
@@ -362,12 +359,18 @@ void FocusedRenderer::CalculateProjectionMatrix() {
   float v_min = std::numeric_limits<float>::max();
   float v_max = std::numeric_limits<float>::min();
   for (auto &referenced_body_ptr : referenced_body_ptrs_) {
+
+    std::cout << "referenced body: " << referenced_body_ptr->name() << std::endl;
+
     float r = 0.5f * referenced_body_ptr->maximum_body_diameter();
     auto translation{world2camera_pose_ *
                      referenced_body_ptr->body2world_pose().translation()};
     float x = translation(0);
     float y = translation(1);
     float z = translation(2);
+
+    std::cout << z << " " << r << " " << z_min_ << " " << z_max_ << std::endl;
+
     if (z < r * 1.5f || z - r < z_min_ || z + r > z_max_) continue;
     float abs_x = std::abs(x);
     float abs_y = std::abs(y);
@@ -386,6 +389,9 @@ void FocusedRenderer::CalculateProjectionMatrix() {
     float u_max_body = center_u + r_u;
     float v_min_body = center_v - r_v;
     float v_max_body = center_v + r_v;
+
+    std::cout << u_min_body << " " << u_max_body << " " << v_min_body << " " << v_max_body << std::endl;
+
     if (u_min_body > intrinsics_.width || u_max_body < 0 ||
         v_min_body > intrinsics_.height || v_max_body < 0)
       continue;
@@ -393,6 +399,9 @@ void FocusedRenderer::CalculateProjectionMatrix() {
     u_max = std::max(u_max, u_max_body);
     v_min = std::min(v_min, v_min_body);
     v_max = std::max(v_max, v_max_body);
+
+    std::cout << "OK" << std::endl;
+
     visible_body_names_.push_back(referenced_body_ptr->name());
   }
 
