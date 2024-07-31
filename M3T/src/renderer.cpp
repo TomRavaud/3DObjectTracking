@@ -352,6 +352,9 @@ FocusedRenderer::FocusedRenderer(
     : Renderer{name, metafile_path, renderer_geometry_ptr, camera_ptr} {}
 
 void FocusedRenderer::CalculateProjectionMatrix() {
+
+  std::cout << "CalculateProjectionMatrix" << std::endl;
+
   // Calculate limits
   visible_body_names_.clear();
   float u_min = std::numeric_limits<float>::max();
