@@ -198,7 +198,6 @@ Renderer::Renderer(
       intrinsics_{intrinsics},
       z_min_{z_min},
       z_max_{z_max} {
-  std::cout << "z min: " << z_min << " z max: " << z_max << std::endl;
   world2camera_pose_ = world2camera_pose;
   camera2world_pose_ = world2camera_pose.inverse();
 }

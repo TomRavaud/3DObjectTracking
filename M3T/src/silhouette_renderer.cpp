@@ -296,7 +296,10 @@ FocusedSilhouetteRenderer::FocusedSilhouetteRenderer(
                            image_size,
                            z_min,
                            z_max},
-      id_type_{id_type} {}
+      id_type_{id_type} {
+        std::cout << "z_min: " << z_min << std::endl;
+        std::cout << "z_max: " << z_max << std::endl;
+      }
 
 FocusedSilhouetteRenderer::FocusedSilhouetteRenderer(
     const std::string &name,
