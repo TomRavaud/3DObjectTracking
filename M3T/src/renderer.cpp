@@ -301,6 +301,12 @@ bool FocusedRenderer::IsBodyReferenced(const std::string &body_name) const {
 }
 
 bool FocusedRenderer::IsBodyVisible(const std::string &body_name) const {
+
+  std::cout << "visible body names: " << visible_body_names_.size() << std::endl;
+  for (auto &visible_body_name : visible_body_names_) {
+    std::cout << visible_body_name << std::endl;
+  }
+
   return std::find(begin(visible_body_names_), end(visible_body_names_),
                    body_name) != end(visible_body_names_);
 }
